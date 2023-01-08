@@ -2,14 +2,16 @@ package edai.cachedb;
 
 public class Cache implements ICache{
 
+    MyTreeMap<String, String> treeStorage;
+
     @Override
     public String[] getAll() {
-        return new String[0];
+        return treeStorage.listData();
     }
 
     @Override
     public String get(String key) {
-        return null;
+        return treeStorage.getValueByKey(key);
     }
 
     @Override
@@ -19,7 +21,7 @@ public class Cache implements ICache{
 
     @Override
     public boolean exists(String key) {
-        return false;
+        return treeStorage.exist(key);
     }
 
     @Override
@@ -34,11 +36,11 @@ public class Cache implements ICache{
 
     @Override
     public void remove(String key) {
-
+        treeStorage.removeOneByKey(key);
     }
 
     @Override
     public int size() {
-        return 0;
+        return treeStorage.size();
     }
 }

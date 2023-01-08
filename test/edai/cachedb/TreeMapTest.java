@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class TreeMapTest {
 
     MyTreeMap<String, Integer> map;
@@ -87,7 +89,13 @@ public class TreeMapTest {
         map.put("3three", 3);
         map.put("1one", 1);
 
-        assertEquals(1, map.getValue("1one"));
+        assertEquals(1, map.getValueByKey("1one"));
+
+         System.out.println(Arrays.toString(map.listData()));
+
+        /*for (int i = 0; i < map.size(); i++){
+            System.out.println(Arrays.toString(entries[i]));
+        }*/
     }
 
     @Test
@@ -96,7 +104,7 @@ public class TreeMapTest {
         map.put("3three", 3);
         map.put("1one", 1);
 
-        assertThrows(KeyNotFoundException.class, () -> map.getValue("4four"));
+        assertThrows(KeyNotFoundException.class, () -> map.getValueByKey("4four"));
     }
 
     @Test
@@ -105,7 +113,7 @@ public class TreeMapTest {
         map.put("3three", 3);
         map.put("1one", 1);
 
-        assertTrue(map.remove("1one"));
+        assertTrue(map.removeOneByKey("1one"));
 
         assertFalse(map.isEmpty());
         assertEquals(2, map.size());
@@ -119,7 +127,7 @@ public class TreeMapTest {
         map.put("3three", 3);
         map.put("1one", 1);
 
-        assertFalse(map.remove("4four"));
+        assertFalse(map.removeOneByKey("4four"));
 
         assertFalse(map.isEmpty());
         assertEquals(3, map.size());
@@ -133,9 +141,9 @@ public class TreeMapTest {
         map.put("3three", 3);
         map.put("1one", 1);
 
-        map.remove("1one");
-        map.remove("2two");
-        map.remove("3three");
+        map.removeOneByKey("1one");
+        map.removeOneByKey("2two");
+        map.removeOneByKey("3three");
 
 
         assertTrue(map.isEmpty());

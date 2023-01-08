@@ -1,5 +1,7 @@
 package edai.cachedb;
 
+import java.util.Arrays;
+
 public class MyTreeMap<TKey extends Comparable<TKey>, TValue> {
     private MyBinaryTree<MapEntry<TKey, TValue>> tree = new MyBinaryTree<>();
 
@@ -9,6 +11,22 @@ public class MyTreeMap<TKey extends Comparable<TKey>, TValue> {
 
     public int size(){
         return tree.size();
+    }
+
+    public String[] listData(){
+        String[] outPuts = new String[tree.size()];
+        Object[] values = listValues();
+        Object[] keys =  listKeys();
+
+        String currentValue = "";
+        String currentKey = "";
+
+        for(int i = 0; i< tree.size(); i++){
+            currentValue = String.valueOf(values[i]);
+            currentKey = String.valueOf(keys[i]);
+            outPuts[i] = currentKey+" - "+currentValue;
+        }
+        return outPuts;
     }
 
     public Object[] listValues(){
@@ -47,12 +65,7 @@ public class MyTreeMap<TKey extends Comparable<TKey>, TValue> {
             return false;
         }
     }
-
-    private MapEntry<TKey,TValue> createEntryForSearch(TKey keyToSearch){
-        return new MapEntry<TKey,TValue>(keyToSearch,null);
-    }
-
-    public TValue getValue(TKey key){
+    public TValue getValueByKey(TKey key){
         var treeNode = tree.search(createEntryForSearch(key));
         if(treeNode == null) throw new KeyNotFoundException();
 
@@ -60,7 +73,7 @@ public class MyTreeMap<TKey extends Comparable<TKey>, TValue> {
         return entry.getValue();
     }
 
-    public boolean remove(TKey key){
+    public boolean removeOneByKey(TKey key){
         if(exist(key) == false) return false;
 
         else{
@@ -68,5 +81,7 @@ public class MyTreeMap<TKey extends Comparable<TKey>, TValue> {
             return true;
         }
     }
-
+    private MapEntry<TKey,TValue> createEntryForSearch(TKey keyToSearch){
+        return new MapEntry<TKey,TValue>(keyToSearch,null);
+    }
 }
