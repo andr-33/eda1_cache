@@ -1,6 +1,7 @@
 package edai.cachedb;
 
-import java.util.Arrays;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MyTreeMap<TKey extends Comparable<TKey>, TValue> {
     private MyBinaryTree<MapEntry<TKey, TValue>> tree = new MyBinaryTree<>();
@@ -24,7 +25,7 @@ public class MyTreeMap<TKey extends Comparable<TKey>, TValue> {
         for(int i = 0; i< tree.size(); i++){
             currentValue = String.valueOf(values[i]);
             currentKey = String.valueOf(keys[i]);
-            outPuts[i] = currentKey+" - "+currentValue;
+            outPuts[i] = currentKey+"-"+currentValue;
         }
         return outPuts;
     }
@@ -52,9 +53,25 @@ public class MyTreeMap<TKey extends Comparable<TKey>, TValue> {
         return outputs;
     }
 
-    public void put(TKey newKey, TValue newValue){
-        MapEntry<TKey,TValue> newEntry = new MapEntry<>(newKey,newValue);
-        tree.insert(newEntry);
+    public void put(TKey key, TValue value){
+        MapEntry<TKey,TValue> entry = new MapEntry<>(key,value);
+        tree.insert(entry);
+    }
+
+    public void saveEntry(TKey key, TValue value, FileWriter file) throws IOException{
+        file.write(key+"-"+value);
+        file.write('\n');
+        put(key, value);
+    }
+
+    public void addNew(TKey newKey, TValue newValue) throws DuplicatedKeyException {
+        if(exist(newKey)){
+            throw new DuplicatedKeyException();
+        }
+        else{
+            MapEntry<TKey,TValue> newEntry = new MapEntry<>(newKey,newValue);
+            tree.insert(newEntry);
+        }
     }
 
     public boolean exist(TKey key){

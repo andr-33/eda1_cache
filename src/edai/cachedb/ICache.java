@@ -1,5 +1,8 @@
 package edai.cachedb;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public interface ICache {
     /**
      * Get all keys stored in cache.
@@ -33,7 +36,7 @@ public interface ICache {
      * @param key Key to be stored.
      * @param value Value to be stored.
      */
-    void put(String key, String value);
+    void put(String key, String value, FileWriter file) throws IOException;
     /**
      * Add a value to a new key. If key already exists, it throws an exception.
      * @param key Key to be stored.

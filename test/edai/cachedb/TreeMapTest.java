@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,6 @@ import java.util.Arrays;
 public class TreeMapTest {
 
     MyTreeMap<String, Integer> map;
-
     @BeforeEach
     void setup(){
         map = new MyTreeMap<>();
@@ -28,8 +28,9 @@ public class TreeMapTest {
         assertArrayEquals(new String[]{}, map.listKeys());
     }
 
+
     @Test
-    void testPutOneValue(){
+    void testPutOneValue() {
         map.put("one", 1);
 
         assertFalse(map.isEmpty());
@@ -84,7 +85,7 @@ public class TreeMapTest {
     }
 
     @Test
-    void testGetValue(){
+    void testGetValue() {
         map.put("2two", 2);
         map.put("3three", 3);
         map.put("1one", 1);
@@ -92,10 +93,6 @@ public class TreeMapTest {
         assertEquals(1, map.getValueByKey("1one"));
 
          System.out.println(Arrays.toString(map.listData()));
-
-        /*for (int i = 0; i < map.size(); i++){
-            System.out.println(Arrays.toString(entries[i]));
-        }*/
     }
 
     @Test
@@ -105,20 +102,6 @@ public class TreeMapTest {
         map.put("1one", 1);
 
         assertThrows(KeyNotFoundException.class, () -> map.getValueByKey("4four"));
-    }
-
-    @Test
-    void removeOneKeyReturnsTrue(){
-        map.put("2two", 2);
-        map.put("3three", 3);
-        map.put("1one", 1);
-
-        assertTrue(map.removeOneByKey("1one"));
-
-        assertFalse(map.isEmpty());
-        assertEquals(2, map.size());
-        assertArrayEquals(new Integer[]{2, 3}, map.listValues());
-        assertArrayEquals(new String[]{"2two", "3three"}, map.listKeys());
     }
 
     @Test
@@ -133,6 +116,20 @@ public class TreeMapTest {
         assertEquals(3, map.size());
         assertArrayEquals(new Integer[]{1, 2, 3}, map.listValues());
         assertArrayEquals(new String[]{"1one", "2two", "3three"}, map.listKeys());
+    }
+
+    @Test
+    void removeOneKeyReturnsTrue(){
+        map.put("2two", 2);
+        map.put("3three", 3);
+        map.put("1one", 1);
+
+        assertTrue(map.removeOneByKey("1one"));
+
+        assertFalse(map.isEmpty());
+        assertEquals(2, map.size());
+        assertArrayEquals(new Integer[]{2, 3}, map.listValues());
+        assertArrayEquals(new String[]{"2two", "3three"}, map.listKeys());
     }
 
     @Test
