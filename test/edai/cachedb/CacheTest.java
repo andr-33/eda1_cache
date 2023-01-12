@@ -45,4 +45,20 @@ public class CacheTest {
         assertThrows(KeyInvalidName.class, ()-> myCache.loadEntry("2two","num-2"));
     }
 
+    @Test
+    void testRemoveEntryInFile() throws IOException {
+        FileWriter fileWriter = new FileWriter("cacheStorage.txt");
+        myCache.put("1one", "1", fileWriter);
+        myCache.put("2two", "2", fileWriter);
+        myCache.put("3three", "3", fileWriter);
+        fileWriter.close();
+
+        myCache.remove("1one");
+
+        assertEquals(myCache.size(), 2);
+        assertFalse(myCache.exists("1one"));
+
+
+    }
+
 }

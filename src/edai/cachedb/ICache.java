@@ -49,7 +49,9 @@ public interface ICache {
      * @param key Key to be stored.
      * @throws KeyNotFoundException if key does not exist.
      */
-    void remove(String key);
+
+    void remove(String key) throws IOException;
+
     /**
      * Count the keys (and values) stored in cache.
      * @return Count of keys.

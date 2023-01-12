@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="EDA_project_AS:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/EDA_project_AS_jar</output-path>
+    <root id="archive" name="EDA_project_AS.jar">
+      <element id="module-output" name="EDA_project_AS" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/picocli-4.7.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -64,8 +64,19 @@ public class Cache implements ICache{
     }
 
     @Override
-    public void remove(String key) {
+    public void remove(String key) throws IOException {
+        FileWriter fileWriter = new FileWriter("cacheStorage.txt");
         treeStorage.removeOneByKey(key);
+        updateFile(fileWriter, treeStorage);
+        fileWriter.close();
+    }
+
+    private void updateFile(FileWriter file, MyTreeMap<String, String> treeUpdated) throws IOException {
+        String[] data = treeUpdated.listData();
+        for(int i=0; i < data.length; i++){
+            file.write(data[i]);
+            file.write('\n');
+        }
     }
 
     @Override
